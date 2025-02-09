@@ -1,15 +1,18 @@
 
 import { useQuery } from "@tanstack/react-query";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import { deezerApi } from "../services/deezer";
-import { Play } from "lucide-react";
+import { Play, Pause } from "lucide-react";
 import Sidebar from "../components/Sidebar";
 import SearchBar from "../components/SearchBar";
 import NowPlaying from "../components/NowPlaying";
+import { usePlayer } from "../contexts/PlayerContext";
+import { DeezerTrack } from "../types/deezer";
 
 const SearchResults = () => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q") || "";
+  const { currentTrack, isPlaying, setCurrentTrack, setIsPlaying } = usePlayer();
 
   const { data: searchResults, isLoading } = useQuery({
     queryKey: ["search", query],
@@ -17,7 +20,16 @@ const SearchResults = () => {
     enabled: !!query,
   });
 
-  const TrackItem = ({ track }: { track: any }) => (
+  const handlePlay = (track: DeezerTrack) => {
+    if (currentTrack?.id === track.id) {
+      setIsPlaying(!isPlaying);
+    } else {
+      setCurrentTrack(track);
+      setIsPlaying(true);
+    }
+  };
+
+  const TrackItem = ({ track }: { track: DeezerTrack }) => (
     <div className="group flex items-center gap-4 p-4 rounded-lg hover:bg-white/10 transition-colors">
       <img
         src={track.album.cover_small}
@@ -26,10 +38,31 @@ const SearchResults = () => {
       />
       <div className="flex-1">
         <h3 className="font-medium">{track.title}</h3>
-        <p className="text-sm text-gray-400">{track.artist.name}</p>
+        <div className="flex gap-2 text-sm text-gray-400">
+          <Link 
+            to={`/artist/${track.artist.id}`}
+            className="hover:text-white transition-colors"
+          >
+            {track.artist.name}
+          </Link>
+          <span>•</span>
+          <Link 
+            to={`/album/${track.album.id}`}
+            className="hover:text-white transition-colors"
+          >
+            {track.album.title}
+          </Link>
+        </div>
       </div>
-      <button className="p-2 bg-green-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
-        <Play className="h-4 w-4" fill="currentColor" />
+      <button 
+        onClick={() => handlePlay(track)}
+        className="p-2 bg-green-500 text-white rounded-full"
+      >
+        {currentTrack?.id === track.id && isPlaying ? (
+          <Pause className="h-4 w-4" fill="currentColor" />
+        ) : (
+          <Play className="h-4 w-4" fill="currentColor" />
+        )}
       </button>
     </div>
   );
@@ -50,7 +83,7 @@ const SearchResults = () => {
               <div className="text-gray-400">Loading...</div>
             ) : searchResults?.data ? (
               <div className="space-y-2">
-                {searchResults.data.map((track: any) => (
+                {searchResults.data.map((track: DeezerTrack) => (
                   <TrackItem key={track.id} track={track} />
                 ))}
               </div>
