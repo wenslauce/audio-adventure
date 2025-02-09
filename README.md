@@ -1,69 +1,47 @@
-# Welcome to your Lovable project
 
-## Project info
+# Musica - Music Streaming App
 
-**URL**: https://lovable.dev/projects/5de16026-be52-45af-a391-f307eff24f92
+A modern music streaming application built with React, TypeScript, and the Deezer API.
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- Search for songs, artists, and albums
+- Browse trending music
+- View featured playlists
+- Play music previews
+- Responsive design with dark mode
 
-**Use Lovable**
+## Technology Stack
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/5de16026-be52-45af-a391-f307eff24f92) and start prompting.
+- React with TypeScript
+- Vite for build tooling
+- TailwindCSS for styling
+- React Query for data fetching
+- Deezer API for music content
 
-Changes made via Lovable will be committed automatically to this repo.
+## API Integration
 
-**Use your preferred IDE**
+The application uses the Deezer API through RapidAPI for music content. Available endpoints:
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- Search: Search for tracks, artists, and albums
+- Track: Get track details
+- Album: Get album details and tracks
+- Artist: Get artist details and top tracks
+- Playlist: Get playlist details and tracks
+- Genre: Browse music by genre
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Development
 
-Follow these steps:
+To run the project locally:
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Start the development server: `npm run dev`
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## API Configuration
 
-# Step 3: Install the necessary dependencies.
-npm i
+The application uses the Deezer API through RapidAPI. The API key is already configured in the services.
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+## License
 
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with .
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/5de16026-be52-45af-a391-f307eff24f92) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+MIT License
